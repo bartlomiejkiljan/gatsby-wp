@@ -7,9 +7,12 @@ const Blog = ({ data }) => (
   <Layout>
     <SEO title="Blog page" />
     { data.allWpPost.nodes.map((post) => (
-      <ul>
-        <li key={post.id}><Link to={ `/${post.slug}/` }>{ post.title }</Link> - by: { post.author.node.firstName } - { post.date } </li>
-      </ul>
+      <div key={post.id}>
+        <h3><Link to={ `/${post.slug}/` }>{ post.title }</Link></h3>
+        <p>by: { post.author.node.firstName } - { post.date }</p>
+        { post.categories.nodes.map(cat => <Link to={ cat.link }>{ cat.name }</Link>) }
+        { post.tags.nodes.map(tag => <Link to={ tag.link }>{ tag.name }</Link>) }
+      </div>
     ))
     }
   </Layout>
@@ -22,6 +25,18 @@ export const pageQuery = graphql`
         id
         title
         slug
+        categories {
+          nodes {
+            link
+            name
+          }
+        }
+        tags {
+          nodes {
+            name
+            link
+          }
+        }
         author {
           node {
             firstName
