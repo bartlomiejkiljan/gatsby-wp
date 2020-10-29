@@ -8,7 +8,7 @@ const Blog = ({ data }) => (
     <SEO title="Blog page" />
     { data.allWpPost.nodes.map((post) => (
       <ul>
-        <li key={post.id}><Link to={ post.slug }>{ post.title }</Link> - by: { post.author.node.firstName } - { post.date } </li>
+        <li key={post.id}><Link to={ `/${post.slug}/` }>{ post.title }</Link> - by: { post.author.node.firstName } - { post.date } </li>
       </ul>
     ))
     }
