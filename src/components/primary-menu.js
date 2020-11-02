@@ -23,7 +23,7 @@ const PrimaryMenu = () => {
     <div>
       <ul>
         { wpMenu.menuItems.nodes.map(menuItem => (
-          <li key={menuItem.id}><Link to={ `/${menuItem.slug}/` }>{ menuItem.label }</Link></li>
+          <li key={menuItem.id}><Link to={ menuItem.url }>{ menuItem.label }</Link></li>
         ))}
       </ul>
     </div>

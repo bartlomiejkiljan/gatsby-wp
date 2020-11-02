@@ -16,7 +16,10 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress-experimental`,
       options: {
-        url: `http://localhost:8080/graphql`,
+        baseUrl: `localhost:8080/graphql`,
+        protocol: `http`,
+        hostingWPCOM: false,
+        useACF: true,
       },
     },
     `gatsby-transformer-sharp`,
