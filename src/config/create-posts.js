@@ -1,3 +1,4 @@
+const { SinglePostFragment } = require(`../data/post`);
 const postTemplate = require.resolve(`../templates/single-post.js`);
 
 module.exports = async ({ graphql, actions }) => {
@@ -7,38 +8,11 @@ module.exports = async ({ graphql, actions }) => {
     query {
       allWpPost(sort: { fields: [date] }) {
         nodes {
-          title
-          slug
-          content
-          categories {
-            nodes {
-              id
-              link
-              name
-            }
-          }
-          tags {
-            nodes {
-              id
-              name
-              link
-            }
-          }
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          date(formatString: "d-M-y")
-          author {
-            node {
-              name
-            }
-          }
+         ...SinglePostFragment
         }
       }
     }
+    ${SinglePostFragment}
   `);
 
   posts.data.allWpPost.nodes.map(post => {

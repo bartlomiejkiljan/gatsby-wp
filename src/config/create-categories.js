@@ -1,4 +1,5 @@
 const categoryTemplate = require.resolve(`../templates/category.js`);
+const { SinglePostFragment } = require(`../data/post`);
 
 module.exports = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -12,44 +13,13 @@ module.exports = async ({ graphql, actions }) => {
         name
         posts {
           nodes {
-            title
-            id
-            uri
-            slug
-            tags {
-              nodes {
-                slug
-                uri
-                name
-                link
-                id
-              }
-            }
-            link
-            excerpt
-            author {
-              node {
-                name
-              }
-            }
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            date(formatString: "d-M-y")
-            categories {
-              nodes {
-                name
-                link
-              }
-            }
+            ...SinglePostFragment
           }
         }
       }
     }
   }
+  ${SinglePostFragment}
 `);
 
   categories.data.allWpCategory.nodes.map(cat => {
