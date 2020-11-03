@@ -14,8 +14,6 @@ const PostCard = ({ data }) => {
     id
   } = data;
 
-  console.log(data);
-
   return (
     <div key={ id }>
       { featuredImage && <img src={ featuredImage.node.sourceUrl } alt={ featuredImage.node.altText } /> }
