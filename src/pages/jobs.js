@@ -3,29 +3,38 @@ import {graphql} from "gatsby";
 
 import Layout from "../components/layout";
 
-const Jobs = ({ data }) => {
+const Jobs = ({ data }) => (
+  <Layout>
+    <h1>All jobs ({ data.allWpJob.totalCount })</h1>
+    {
+      data.allWpJob.nodes.map(job => {
+        const {
+          id,
+          title,
+          jobDetails : { location, salary, endDate },
+          excerpt
+        } = job;
 
-  return (
-    <Layout>
-      <h1>All jobs ({ data.allWpJob.totalCount })</h1>
-      {
-        data.allWpJob.nodes.map(job => (
-          <div key={ job.id }>
-            <h3>{ job.title }</h3>
-            <div dangerouslySetInnerHTML={{ __html: job.excerpt }}></div>
+        return (
+          <div key={ id }>
+            <h3>{ title }</h3>
+            <p>{ location }</p>
+            <p>{ salary }</p>
+            <p>{ endDate }</p>
+            <div dangerouslySetInnerHTML={{ __html: excerpt }} />
             <button>Open details</button>
           </div>
-        ))
-      }
-    </Layout>
-  )
-};
+        )
+      })
+    }
+  </Layout>
+);
 
 export default Jobs;
 
 export const query = graphql`
   query GetJobs {
-    allWpJob {
+    allWpJob(sort: {fields: date, order: DESC}) {
       nodes {
         id
         categories {
@@ -38,6 +47,11 @@ export const query = graphql`
         slug
         title
         date(formatString: "d-M-y")
+        jobDetails {
+          location
+          salary
+          endDate
+        }
       }
       totalCount
     }
