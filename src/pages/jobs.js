@@ -1,5 +1,5 @@
 import React from "react";
-import {graphql} from "gatsby";
+import {graphql, Link} from "gatsby";
 
 import Layout from "../components/layout";
 
@@ -12,7 +12,8 @@ const Jobs = ({ data }) => (
           id,
           title,
           jobDetails : { location, salary, endDate },
-          excerpt
+          excerpt,
+          link
         } = job;
 
         return (
@@ -22,7 +23,7 @@ const Jobs = ({ data }) => (
             <p>{ salary }</p>
             <p>{ endDate }</p>
             <div dangerouslySetInnerHTML={{ __html: excerpt }} />
-            <button>Open details</button>
+            <Link to={ link }>Open details</Link>
           </div>
         )
       })
@@ -44,7 +45,7 @@ export const query = graphql`
           }
         }
         excerpt
-        slug
+        link
         title
         date(formatString: "d-M-y")
         jobDetails {
