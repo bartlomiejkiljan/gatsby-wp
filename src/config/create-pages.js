@@ -15,8 +15,6 @@ module.exports = async ({ graphql, actions }) => {
     }
   `);
 
-  console.log(pages);
-
   pages.data.allWpPage.nodes.map(page => {
     createPage({
       path: page.slug,

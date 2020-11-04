@@ -1,6 +1,6 @@
 const { SinglePostFragment } = require(`../data/post`);
 const postTemplate = require.resolve(`../templates/single-post.js`);
-const blogPage = require.resolve(`../templates/blog-page.js`);
+const blogPage = require.resolve(`../templates/blog.js`);
 
 module.exports = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -29,6 +29,7 @@ module.exports = async ({ graphql, actions }) => {
   const postsPerPage = settings.data.wp.readingSettings.postsPerPage;
   const posts = postData.data.allWpPost.nodes;
   const pagesQty = Math.ceil(posts.length / postsPerPage);
+  const blogSlug = 'blog';
 
   let postEndLimit = 0;
 
@@ -45,10 +46,12 @@ module.exports = async ({ graphql, actions }) => {
     }
 
     createPage({
-      path: i===0 ? `/blog` : `/blog/page/${currentPage}`,
+      path: i===0 ? `/${blogSlug}` : `/${blogSlug}/page/${currentPage}`,
       component: blogPage,
       context: {
         currentPage: currentPage,
+        lastPage: pagesQty,
+        slug: blogSlug,
         posts: paginatedPosts
       }
     });
