@@ -4,8 +4,8 @@ const createCategories = require(`./src/config/create-categories`);
 const createJobs = require(`./src/config/create-jobs`);
 
 exports.createPages = async ({ graphql, actions }) => {
-  await createPosts({ graphql, actions });
   await createPages({ graphql, actions });
+  await createPosts({ graphql, actions });
   await createCategories({ graphql, actions });
   await createJobs({ graphql, actions });
 };

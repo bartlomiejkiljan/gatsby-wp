@@ -1,12 +1,13 @@
 const { SinglePostFragment } = require(`../data/post`);
 const postTemplate = require.resolve(`../templates/single-post.js`);
+const blogPage = require.resolve(`../templates/blog-page.js`);
 
 module.exports = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const posts = await graphql(`
+  const postData = await graphql(`
     query {
-      allWpPost(sort: { fields: [date] }) {
+      allWpPost(sort: { fields: date, order: DESC }) {
         nodes {
          ...SinglePostFragment
         }
@@ -15,7 +16,45 @@ module.exports = async ({ graphql, actions }) => {
     ${SinglePostFragment}
   `);
 
-  posts.data.allWpPost.nodes.map(post => {
+  const settings = await graphql(`
+    query WpSettings {
+      wp {
+        readingSettings {
+          postsPerPage
+        }
+      }
+    }
+  `);
+
+  const postsPerPage = settings.data.wp.readingSettings.postsPerPage;
+  const posts = postData.data.allWpPost.nodes;
+  const pagesQty = Math.ceil(posts.length / postsPerPage);
+
+  let postEndLimit = 0;
+
+  for (let i=0; i<pagesQty; i++) {
+    const currentPage = i + 1;
+
+    let paginatedPosts = [];
+    if (i===0) {
+      paginatedPosts = posts.slice(i, postsPerPage);
+      postEndLimit = postsPerPage;
+    } else {
+      paginatedPosts = posts.slice(postEndLimit, postEndLimit + postsPerPage);
+      postEndLimit += postsPerPage;
+    }
+
+    createPage({
+      path: i===0 ? `/blog` : `/blog/page/${currentPage}`,
+      component: blogPage,
+      context: {
+        currentPage: currentPage,
+        posts: paginatedPosts
+      }
+    });
+  }
+
+  posts.map(post => {
     createPage({
       path: `/blog/${post.slug}/`,
       component: postTemplate,
