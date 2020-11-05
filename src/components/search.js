@@ -5,7 +5,7 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
-  const { allWpPost } = useStaticQuery(graphql`
+  const { allWpPost, allWpPage } = useStaticQuery(graphql`
     query SearchData {
       allWpPost {
         nodes {
@@ -13,6 +13,8 @@ const Search = () => {
           title
           slug
           excerpt
+          content
+          nodeType
           categories {
             nodes {
               id
@@ -29,30 +31,54 @@ const Search = () => {
           }
         }
       }
+      allWpPage {
+        nodes {
+          id
+          title
+          slug
+          uri
+          content
+          nodeType
+        }
+      }
     }
   `);
 
+  const allData = [
+    ...allWpPost.nodes,
+    ...allWpPage.nodes
+  ];
+
   const getFilteredData = (term) => {
-    setFilteredData(allWpPost.nodes.filter(post => post.title.toLowerCase() === term.toLowerCase()));
+    setFilteredData(allData.filter(post =>{
+      const content = post.content ? post.content.toLowerCase() : '';
+
+      return post.title.toLowerCase().includes(term) || content.includes(term)
+      }
+    ));
+  };
+
+  const handleSearchInput = ({ currentTarget: { value } }) => {
+    setSearchTerm(value);
+
+    if (value.length) {
+      getFilteredData(value);
+    } else {
+      setFilteredData([]);
+    }
   };
 
   return (
     <>
       <form>
-        <input title="search" value={searchTerm} onChange={({ currentTarget }) => {
-          setSearchTerm(currentTarget.value);
-          getFilteredData(currentTarget.value);
-        }}/>
-        Search for: { searchTerm }
+        <input title="search" value={searchTerm.toLowerCase()} onChange={(e) => handleSearchInput(e)}/>
       </form>
-      <div>
-        { filteredData.map(post =>
-          <div id={ post.id }>
-            <h3><Link to={ `/blog/${post.slug}` }>{ post.title }</Link></h3>
-            <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-          </div>
-        ) }
-      </div>
+      { filteredData.length ?
+        <ul>
+          { filteredData.map(post => <li id={post.id}><Link to={`/blog/${post.slug}`}>{post.title} - {post.nodeType}</Link></li>) }
+        </ul>
+        : searchTerm.length > 0 && <p>No search results</p>
+      }
     </>
   );
 };
