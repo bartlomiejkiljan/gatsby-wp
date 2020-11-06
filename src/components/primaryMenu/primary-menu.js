@@ -1,5 +1,7 @@
 import React from "react";
-import {graphql, useStaticQuery, Link} from "gatsby";
+import {graphql, useStaticQuery} from "gatsby";
+
+import { MenuWrapper, MenuList, MenuItem, MenuItemLink } from './primary-menu-styles';
 
 const PrimaryMenu = () => {
   const { wpMenu } = useStaticQuery(graphql`
@@ -20,13 +22,13 @@ const PrimaryMenu = () => {
   `);
 
   return !!wpMenu ? (
-    <div>
-      <ul>
+    <MenuWrapper>
+      <MenuList>
         { wpMenu.menuItems.nodes.map(menuItem => (
-          <li key={menuItem.id}><Link to={ menuItem.url }>{ menuItem.label }</Link></li>
+          <MenuItem key={menuItem.id}><MenuItemLink to={ menuItem.url }>{ menuItem.label }</MenuItemLink></MenuItem>
         ))}
-      </ul>
-    </div>
+      </MenuList>
+    </MenuWrapper>
   ) : null;
 };
 

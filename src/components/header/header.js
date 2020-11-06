@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import PrimaryMenu from "../primary-menu";
+import PrimaryMenu from "../primaryMenu/primary-menu";
 import Search from "../search";
 
 import { SiteHeader, SiteHeaderWrapper, Logo } from './headerStyles';
