@@ -1,5 +1,8 @@
 const categoryTemplate = require.resolve(`../templates/category.js`);
 const { SinglePostFragment } = require(`../data/post`);
+const { createPagination } = require(`./create-pagination`);
+
+const SLUG = 'category';
 
 module.exports = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -9,7 +12,7 @@ module.exports = async ({ graphql, actions }) => {
      allWpCategory {
       nodes {
         count
-        link
+        slug
         name
         posts {
           nodes {
@@ -22,13 +25,7 @@ module.exports = async ({ graphql, actions }) => {
   ${SinglePostFragment}
 `);
 
-  categories.data.allWpCategory.nodes.map(cat => {
-    createPage({
-      path: cat.link,
-      component: categoryTemplate,
-      context: {
-        ...cat
-      }
-    });
+  categories.data.allWpCategory.nodes.map(category => {
+    createPagination(graphql, createPage, category, categoryTemplate, `${SLUG}/${category.slug}`);
   });
 };
