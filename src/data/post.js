@@ -1,5 +1,6 @@
 const SinglePostFragment = `
   fragment SinglePostFragment on WpPost {
+    id
     title
     slug
     content

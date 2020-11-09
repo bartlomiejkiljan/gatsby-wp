@@ -14,7 +14,7 @@ const Category = props => {
   return (
     <Layout>
       <h1>Category: { name }</h1>
-      { posts.nodes && posts.nodes.map(post => <PostCard data={ post }/>) }
+      { posts.nodes && posts.nodes.map(post => <PostCard data={ post } key={ post.id } />) }
     </Layout>
   )
 };

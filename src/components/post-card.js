@@ -10,12 +10,11 @@ const PostCard = ({ data }) => {
     tags,
     date,
     featuredImage,
-    excerpt,
-    id
+    excerpt
   } = data;
 
   return (
-    <div key={ id }>
+    <div>
       { featuredImage && <img src={ featuredImage.node.sourceUrl } alt={ featuredImage.node.altText } /> }
       <h3><Link to={ `/blog/${slug}` }>{ title }</Link></h3>
       <p>by: { author.node.name } - { date }</p>

@@ -99,7 +99,7 @@ const Search = () => {
           { filteredData.length ?
             <ul>
               { filteredData.map(post =>
-                <li id={post.id}>
+                <li id={post.id} key={post.id}>
                   <Link to={ post.nodeType === 'Page' ? `/${post.slug}` : `/blog/${post.slug}` }>
                     {post.title} - {post.nodeType}
                   </Link>
