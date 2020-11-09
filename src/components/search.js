@@ -92,7 +92,8 @@ const Search = () => {
             <input
               name="search"
               autoFocus={true}
-              autoComplete="false"
+              autoComplete="off"
+              autoCorrect="off"
               value={searchTerm.toLowerCase()}
               onChange={(e) => handleSearchInput(e)}/>
           </form>
