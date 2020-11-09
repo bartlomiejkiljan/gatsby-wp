@@ -73,9 +73,17 @@ const Search = () => {
     }
   };
 
+  const toggleSearchForm = () => {
+    if (toggleSearch) {
+      setFilteredData([]);
+      setSearchTerm('');
+    }
+    setToggleSearch(toggleSearch => !toggleSearch)
+  };
+
   return (
     <>
-      <button onClick={() => setToggleSearch(toggleSearch => !toggleSearch) }>
+      <button onClick={() => toggleSearchForm() }>
         { toggleSearch ? 'Close search' : 'Open search' }
       </button>
       { toggleSearch &&
