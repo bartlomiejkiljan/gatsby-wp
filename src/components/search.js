@@ -53,21 +53,22 @@ const Search = () => {
   ];
 
   const getFilteredData = (term) => {
-    const filterData = allData.filter(post =>{
-      const content = post.content ? post.content.toLowerCase() : '';
+    const filterData = allData.filter((post, i) => {
+      if (i < SEARCH_RESULTS_LIMIT) {
+        const content = post.content ? post.content.toLowerCase() : '';
 
-      return post.title.toLowerCase().includes(term) || content.includes(term)
+        return post.title.toLowerCase().includes(term) || content.includes(term)
       }
-    );
-    filterData.length = SEARCH_RESULTS_LIMIT;
+    });
     setFilteredData(filterData)
   };
 
   const handleSearchInput = ({ currentTarget: { value } }) => {
     setSearchTerm(value);
+    const keyword = value.trim();
 
-    if (value.length) {
-      getFilteredData(value);
+    if (keyword.length) {
+      getFilteredData(keyword);
     } else {
       setFilteredData([]);
     }
@@ -107,7 +108,7 @@ const Search = () => {
                 </li>)
               }
             </ul>
-            : searchTerm.length > 0 && <p>No search results</p>
+            : searchTerm.trim().length > 0 && <p>No search results</p>
           }
         </div>
       }

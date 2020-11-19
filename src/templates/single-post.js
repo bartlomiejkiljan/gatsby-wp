@@ -26,7 +26,7 @@ const SinglePost = props => {
       <p>By: { author.node.name }</p>
       { categories.nodes.map(cat => <Link key={ cat.id } to={ cat.link }>{ cat.name }</Link>) }
       { tags.nodes.map(tag => <Link key={ tag.id } to={ tag.link }>{ tag.name }</Link>) }
-      <div>{ content }</div>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </Layout>
   )
 };
