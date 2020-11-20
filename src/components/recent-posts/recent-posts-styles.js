@@ -12,6 +12,10 @@ export const TitleButton = styled(Link)`
   color: ${({theme}) => theme.white};
   text-decoration: none;
   background-color: ${({theme}) => theme.secondary};
+    
+  &:hover {
+    background-color: ${({theme}) => theme.primary};
+  }
 `;
 
 export const TitleWrapper = styled.h2`
@@ -30,10 +34,12 @@ export const Item = styled.div`
   width: 33.33%;
   text-align: center;
   padding: 0 15px;
+  margin-bottom: 20px;
 `;
 
 export const ItemsWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 export const ItemBgPlaceholder = styled.div`
@@ -46,6 +52,10 @@ export const ItemLink = styled(Link)`
   font-size: 20px;
   color: ${({theme}) => theme.secondary};
   text-decoration: none;
+  
+  &:hover {
+    color: ${({theme}) => theme.primary};
+  }
 `;
 
 export const ItemTitle = styled.h3`
@@ -68,6 +78,10 @@ export const ItemButton = styled(Link)`
   font-size: 14px;
   text-decoration: none;
   color: ${({theme}) => theme.primary};
+      
+  &:hover {
+    color: ${({theme}) => theme.secondary};
+  }
 `;
 
 export const ItemContent = styled.div`
