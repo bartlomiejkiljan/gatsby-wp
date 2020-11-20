@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from 'gatsby';
 
 export const SiteHeader = styled.header`
-  background: rebeccapurple;
+  background: ${({theme}) => theme.primary };
   margin-bottom: 1.45rem;
 `;
 

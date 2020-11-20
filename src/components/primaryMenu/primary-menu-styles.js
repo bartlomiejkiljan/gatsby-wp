@@ -11,7 +11,7 @@ export const SubMenu = styled.ul`
   left: -50%;
   width: 120px;
   display: none;
-  background: rebeccapurple;
+  background: ${({theme}) => theme.primary };
   text-align: center;
   list-style: none;
   box-shadow: 0 0 10px rgba(0,0,0,.1);

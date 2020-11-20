@@ -14,7 +14,7 @@ const Blog = ({ pageContext }) => {
 
   return (
     <Layout>
-      <h1>Blog page { currentPage }</h1>
+      <h1>{ currentPage > 1 ? `Blog page ${currentPage}` : 'Blog' }</h1>
       { posts.map(post => <PostCard data={post} key={post.id} />) }
       <Pagination currentPage={currentPage} lastPage={lastPage} slug={slug} />
     </Layout>
