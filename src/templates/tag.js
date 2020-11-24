@@ -3,7 +3,7 @@ import Layout from "../components/layout";
 import PostCard from "../components/post-card";
 import Pagination from "../components/pagination";
 
-const Category = ({pageContext}) => {
+const Tag = ({pageContext}) => {
 
   const {
     name,
@@ -15,11 +15,11 @@ const Category = ({pageContext}) => {
 
   return (
     <Layout>
-      <h1>Category: { name }</h1>
+      <h1>Tag: { name }</h1>
       { posts && posts.map(post => <PostCard data={ post } key={ post.id } />) }
       <Pagination currentPage={currentPage} lastPage={lastPage} slug={slug} />
     </Layout>
   )
 };
 
-export default Category;
+export default Tag;
