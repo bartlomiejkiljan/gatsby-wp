@@ -43,10 +43,10 @@ const RecentPosts = ({ quantity }) => {
       </TitleWrapper>
       { postsData.length &&
         <ItemsWrapper>
-          { postsData.map(({featuredImage, slug, excerpt, title}, i) => {
+          { postsData.map(({featuredImage, slug, excerpt, title, id}, i) => {
           if (i < quantity) {
             return (
-              <Item>
+              <Item key={id}>
                 <ItemBgPlaceholder>
                   {featuredImage && <ItemImg src={ featuredImage.node.sourceUrl } alt={ featuredImage.node.altText } /> }
                 </ItemBgPlaceholder>
