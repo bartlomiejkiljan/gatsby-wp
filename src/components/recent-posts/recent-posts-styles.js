@@ -18,7 +18,7 @@ export const TitleButton = styled(Link)`
   }
 `;
 
-export const TitleWrapper = styled.h2`
+export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start
