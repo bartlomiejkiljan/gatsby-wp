@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from 'gatsby';
 
 export const SiteHeader = styled.header`
+  position: relative;
   background: ${({theme}) => theme.primary };
   margin-bottom: 1.45rem;
 `;

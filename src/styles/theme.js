@@ -5,6 +5,7 @@ export const theme = {
   secondary: "#00296b",
   white: "#fff",
   gray: "#edf2fb",
+  black: "#222831",
 };
 
 export const Container = styled.div`

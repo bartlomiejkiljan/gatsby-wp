@@ -1,5 +1,16 @@
 import React, {useState} from "react";
 import {graphql, useStaticQuery, Link} from "gatsby";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faSearch, faTimes} from '@fortawesome/free-solid-svg-icons'
+
+import {
+  SearchContainer,
+  Form,
+  SearchIcon,
+  SearchInput,
+  SearchPreview,
+  SearchResults, ResultsList, ResultsListItem, ResultsListLink, NoResult
+} from './search-styles'
 
 const SEARCH_RESULTS_LIMIT = 5;
 
@@ -83,36 +94,43 @@ const Search = () => {
   };
 
   return (
-    <>
-      <button onClick={() => toggleSearchForm() }>
-        { toggleSearch ? 'Close search' : 'Open search' }
-      </button>
+    <SearchContainer>
       { toggleSearch &&
-        <div>
-          <form>
-            <input
+        <SearchPreview>
+          <Form>
+            <SearchInput
               name="search"
-              autoFocus={true}
+              autoFocus={toggleSearch}
               autoComplete="off"
               autoCorrect="off"
+              placeholder="Search..."
               value={searchTerm.toLowerCase()}
               onChange={(e) => handleSearchInput(e)}/>
-          </form>
-          { filteredData.length ?
-            <ul>
-              { filteredData.map(post =>
-                <li id={post.id} key={post.id}>
-                  <Link to={ post.nodeType === 'Page' ? `/${post.slug}` : `/blog/${post.slug}` }>
-                    {post.title} - {post.nodeType}
-                  </Link>
-                </li>)
-              }
-            </ul>
-            : searchTerm.trim().length > 0 && <p>No search results</p>
-          }
-        </div>
+          </Form>
+            { filteredData.length ?
+              <SearchResults>
+                <ResultsList>
+                  { filteredData.map(post =>
+                    <ResultsListItem id={post.id} key={post.id}>
+                      <ResultsListLink to={ post.nodeType === 'Page' ? `/${post.slug}` : `/blog/${post.slug}` }>
+                        {post.title} - {post.nodeType}
+                      </ResultsListLink>
+                    </ResultsListItem>)
+                  }
+                </ResultsList>
+              </SearchResults>
+              :
+              searchTerm.trim().length > 0 &&
+                <SearchResults>
+                  <NoResult>No search results</NoResult>
+                </SearchResults>
+            }
+        </SearchPreview>
       }
-    </>
+      <SearchIcon onClick={() => toggleSearchForm() }>
+        { toggleSearch ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faSearch} /> }
+      </SearchIcon>
+    </SearchContainer>
   );
 };
 
