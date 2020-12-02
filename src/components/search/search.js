@@ -18,6 +18,7 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [activeResult, setActiveResult] = useState(0);
 
   const { allWpPost, allWpPage } = useStaticQuery(graphql`
     query SearchData {
@@ -72,6 +73,7 @@ const Search = () => {
       }
     });
     setFilteredData(filterData)
+    setActiveResult(0);
   };
 
   const handleSearchInput = ({ currentTarget: { value } }) => {
@@ -93,6 +95,24 @@ const Search = () => {
     setToggleSearch(toggleSearch => !toggleSearch)
   };
 
+  const handleArrowPress = ({key}) => {
+    const itemResultsCount = filteredData.length - 1;
+
+    if (key === 'ArrowDown' && itemResultsCount > 0) {
+      if (activeResult >= itemResultsCount) {
+        setActiveResult(0)
+      } else {
+        setActiveResult(activeResult + 1)
+      }
+    } else if (key === 'ArrowUp' && itemResultsCount > 0) {
+      if (activeResult === 0) {
+        setActiveResult(itemResultsCount)
+      } else {
+        setActiveResult(activeResult - 1);
+      }
+    }
+  };
+
   return (
     <SearchContainer>
       { toggleSearch &&
@@ -105,13 +125,15 @@ const Search = () => {
               autoCorrect="off"
               placeholder="Search..."
               value={searchTerm.toLowerCase()}
-              onChange={(e) => handleSearchInput(e)}/>
+              onChange={e => handleSearchInput(e)}
+              onKeyDown={e => handleArrowPress(e)}
+            />
           </Form>
             { filteredData.length ?
               <SearchResults>
                 <ResultsList>
-                  { filteredData.map(post =>
-                    <ResultsListItem id={post.id} key={post.id}>
+                  { filteredData.map((post, i) =>
+                    <ResultsListItem id={post.id} key={post.id} className={activeResult === i ? 'active' : ''}>
                       <ResultsListLink to={ post.nodeType === 'Page' ? `/${post.slug}` : `/blog/${post.slug}` }>
                         {post.title} - {post.nodeType}
                       </ResultsListLink>

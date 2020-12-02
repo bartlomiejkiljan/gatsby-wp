@@ -74,6 +74,10 @@ export const ResultsList = styled.ul`
 export const ResultsListItem = styled.li`
   padding: 5px;
   margin: 0;
+  
+  &.active {
+    background-color: ${({theme}) => theme.gray};
+  }
 `;
 
 export const ResultsListLink = styled(Link)`
