@@ -14,7 +14,7 @@ const Job = ({ pageContext }) => {
   } = pageContext;
 
   return (
-    <Layout>
+    <Layout title={title}>
       <h1>{ title }</h1>
       <div>{ location } - { salary } - { endDate }</div>
       <div dangerouslySetInnerHTML={{ __html: content }} />

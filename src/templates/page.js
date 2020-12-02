@@ -11,7 +11,7 @@ const Page = props => {
   } = props;
 
   return (
-    <Layout>
+    <Layout title={title}>
       <h1>{ title }</h1>
       <div dangerouslySetInnerHTML={{ __html: content }} />
     </Layout>

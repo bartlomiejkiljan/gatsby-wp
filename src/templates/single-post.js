@@ -17,7 +17,7 @@ const SinglePost = props => {
   } = props;
 
   return (
-    <Layout>
+    <Layout title={title}>
       { featuredImage &&
         <img src={ featuredImage.node.sourceUrl } alt={ featuredImage.node.altText } />
       }

@@ -4,7 +4,7 @@ import {graphql, Link} from "gatsby";
 import Layout from "../components/layout";
 
 const Jobs = ({ data }) => (
-  <Layout>
+  <Layout title="All jobs">
     <h1>All jobs ({ data.allWpJob.totalCount })</h1>
     {
       data.allWpJob.nodes.map(job => {

@@ -14,7 +14,7 @@ const Category = ({pageContext}) => {
   } = pageContext;
 
   return (
-    <Layout>
+    <Layout title={currentPage > 1 ? `Category ${name} - Page ${currentPage}` : `Category ${name}`}>
       <h1>Category: { name }</h1>
       { posts && posts.map(post => <PostCard data={ post } key={ post.id } />) }
       <Pagination currentPage={currentPage} lastPage={lastPage} slug={slug} />
