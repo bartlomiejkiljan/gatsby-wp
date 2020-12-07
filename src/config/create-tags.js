@@ -11,12 +11,12 @@ module.exports = async ({ graphql, actions }) => {
     query Tags {
       allWpTag {
         nodes {
-          count
-          name
           slug
+          name
           posts {
             nodes {
-            ...SinglePostFragment
+              ...SinglePostFragment
+            }
           }
         }
       }
