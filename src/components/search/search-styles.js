@@ -72,7 +72,6 @@ export const ResultsList = styled.ul`
 `;
 
 export const ResultsListItem = styled.li`
-  padding: 5px;
   margin: 0;
   
   &.active {
@@ -81,6 +80,9 @@ export const ResultsListItem = styled.li`
 `;
 
 export const ResultsListLink = styled(Link)`
+  display: inline-block;
+  width: 100%;
+  padding: 5px;
   color: ${({theme}) => theme.black};
   font-size: 16px;
   text-decoration: none;

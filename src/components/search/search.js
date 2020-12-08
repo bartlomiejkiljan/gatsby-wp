@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {graphql, useStaticQuery, Link} from "gatsby";
+import React, {useState, useRef} from "react";
+import {graphql, useStaticQuery} from "gatsby";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faSearch, faTimes} from '@fortawesome/free-solid-svg-icons'
 
@@ -19,6 +19,8 @@ const Search = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [toggleSearch, setToggleSearch] = useState(false);
   const [activeResult, setActiveResult] = useState(0);
+
+  const resultList = useRef(null);
 
   const { allWpPost, allWpPage } = useStaticQuery(graphql`
     query SearchData {
@@ -96,20 +98,28 @@ const Search = () => {
   };
 
   const handleArrowPress = ({key}) => {
-    const itemResultsCount = filteredData.length - 1;
+    const searchResultsCount = filteredData.length - 1;
 
-    if (key === 'ArrowDown' && itemResultsCount > 0) {
-      if (activeResult >= itemResultsCount) {
+    if (key === 'ArrowDown' && searchResultsCount > 0) {
+      if (activeResult >= searchResultsCount) {
         setActiveResult(0)
       } else {
         setActiveResult(activeResult + 1)
       }
-    } else if (key === 'ArrowUp' && itemResultsCount > 0) {
+    } else if (key === 'ArrowUp' && searchResultsCount > 0) {
       if (activeResult === 0) {
-        setActiveResult(itemResultsCount)
+        setActiveResult(searchResultsCount)
       } else {
         setActiveResult(activeResult - 1);
       }
+    }
+  };
+
+  const handleSubmitForm = (e) => {
+    if (activeResult !== -1) {
+      e.preventDefault();
+      const resultLink = resultList.current.children[activeResult].getElementsByTagName('a')[0].getAttribute('href');
+      window.open(resultLink, '_self');
     }
   };
 
@@ -117,7 +127,7 @@ const Search = () => {
     <SearchContainer>
       { toggleSearch &&
         <SearchPreview>
-          <Form>
+          <Form onSubmit={e => handleSubmitForm(e)}>
             <SearchInput
               name="search"
               autoFocus={toggleSearch}
@@ -131,7 +141,7 @@ const Search = () => {
           </Form>
             { filteredData.length ?
               <SearchResults>
-                <ResultsList>
+                <ResultsList ref={resultList}>
                   { filteredData.map((post, i) =>
                     <ResultsListItem id={post.id} key={post.id} className={activeResult === i ? 'active' : ''}>
                       <ResultsListLink to={ post.nodeType === 'Page' ? `/${post.slug}` : `/blog/${post.slug}` }>
