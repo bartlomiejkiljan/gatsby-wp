@@ -7,20 +7,23 @@ import Cta from "../components/block-cta/cta";
 import Paragraph from "../components/block-paragraph/paragraph";
 import Quote from "../components/block-quote/quote";
 import HeroSection from "../components/block-hero/hero-section";
+import CardsSection from "../components/block-cards/cards-section";
 
 const IndexPage = ({ data }) => {
   console.log(data.allWpPage.nodes[0].blocks);
   return (
     <Layout title="Home">
-    {data.allWpPage.nodes[0].blocks.map(block => {
+    {data.allWpPage.nodes[0].blocks.map((block, i) => {
       if (block.name === 'custom/cta') {
-        return <Cta attributes={block.attributes} />;
+        return <Cta attributes={block.attributes} key={`block-${i}`} />;
       } else if (block.name === 'core/paragraph') {
-        return <Paragraph attributes={block.attributes} />
+        return <Paragraph attributes={block.attributes} key={`block-${i}`} />
       } else if (block.name === 'custom/quote') {
-        return <Quote attributes={block.attributes} />
+        return <Quote attributes={block.attributes} key={`block-${i}`} />
       } else if (block.name === 'custom/hero-section') {
-        return <HeroSection items={block.innerBlocks} />
+        return <HeroSection items={block.innerBlocks} key={`block-${i}`} />
+      } else if (block.name === 'custom/card-section') {
+        return <CardsSection items={block.innerBlocks} key={`block-${i}`} />
       }
     })}
     <RecentPosts quantity={3} />
@@ -78,6 +81,18 @@ query Blocks {
                 imageAlign
                 imageAlt
                 imageUrl
+              }
+            }
+          }
+        }
+        ... on WpCustomCardSectionBlock {
+          name
+          innerBlocks {
+            name
+            ... on WpCustomCardBlock {
+              attributes {
+                desc
+                title
               }
             }
           }
