@@ -69,6 +69,10 @@ module.exports = async ({ graphql, actions }) => {
                 }
               }
             }
+            ... on WpCoreColumnsBlock {
+              name
+              saveContent
+            }
           }
         }
       }
