@@ -62,6 +62,10 @@ export const Blocks = graphql`
           }
         }
       }
+      ... on WpCoreColumnsBlock {
+        name
+        saveContent
+      }
     }
   }
 `;

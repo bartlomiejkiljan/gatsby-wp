@@ -3,7 +3,7 @@ import React from "react"
 const Paragraph = ({ attributes: {content} }) => {
 
   return (
-    <p>{content}</p>
+    <p dangerouslySetInnerHTML={{ __html: content }} />
   );
 };
 
