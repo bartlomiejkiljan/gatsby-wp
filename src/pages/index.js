@@ -6,6 +6,7 @@ import RecentPosts from "../components/recent-posts/recent-posts";
 import Cta from "../components/block-cta/cta";
 import Paragraph from "../components/block-paragraph/paragraph";
 import Quote from "../components/block-quote/quote";
+import HeroSection from "../components/block-hero/hero-section";
 
 const IndexPage = ({ data }) => {
   console.log(data.allWpPage.nodes[0].blocks);
@@ -18,6 +19,8 @@ const IndexPage = ({ data }) => {
         return <Paragraph attributes={block.attributes} />
       } else if (block.name === 'custom/quote') {
         return <Quote attributes={block.attributes} />
+      } else if (block.name === 'custom/hero-section') {
+        return <HeroSection items={block.innerBlocks} />
       }
     })}
     <RecentPosts quantity={3} />
@@ -55,6 +58,27 @@ query Blocks {
           attributes {
             ... on WpCoreParagraphBlockAttributes {
               content
+            }
+          }
+        }
+        ... on WpCustomHeroSectionBlock {
+          saveContent
+          innerBlocks {
+            name
+            ... on WpCustomHeroItemBlock {
+              name
+              attributes {
+                title
+                bgColor
+                bgType
+                bgUrl
+                buttonText
+                buttonUrl
+                caption
+                imageAlign
+                imageAlt
+                imageUrl
+              }
             }
           }
         }
