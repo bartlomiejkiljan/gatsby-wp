@@ -3,32 +3,14 @@ import { graphql } from 'gatsby'
 
 import Layout from "../components/layout"
 import RecentPosts from "../components/recent-posts/recent-posts";
-import Cta from "../components/block-cta/cta";
-import Paragraph from "../components/block-paragraph/paragraph";
-import Quote from "../components/block-quote/quote";
-import HeroSection from "../components/block-hero/hero-section";
-import CardsSection from "../components/block-cards/cards-section";
+import ContentManager from "../components/content-manager/content-manager";
 
-const IndexPage = ({ data }) => {
-  console.log(data.allWpPage.nodes[0].blocks);
-  return (
+const IndexPage = ({ data }) => (
     <Layout title="Home">
-    {data.allWpPage.nodes[0].blocks.map((block, i) => {
-      if (block.name === 'custom/cta') {
-        return <Cta attributes={block.attributes} key={`block-${i}`} />;
-      } else if (block.name === 'core/paragraph') {
-        return <Paragraph attributes={block.attributes} key={`block-${i}`} />
-      } else if (block.name === 'custom/quote') {
-        return <Quote attributes={block.attributes} key={`block-${i}`} />
-      } else if (block.name === 'custom/hero-section') {
-        return <HeroSection items={block.innerBlocks} key={`block-${i}`} />
-      } else if (block.name === 'custom/card-section') {
-        return <CardsSection items={block.innerBlocks} key={`block-${i}`} />
-      }
-    })}
+    <ContentManager blocks={data.allWpPage.nodes[0].blocks} />
     <RecentPosts quantity={3} />
   </Layout>
-)};
+);
 
 export default IndexPage
 
