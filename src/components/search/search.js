@@ -112,6 +112,8 @@ const Search = () => {
       } else {
         setActiveResult(activeResult - 1);
       }
+    } else if (key === 'Escape') {
+      toggleSearchForm();
     }
   };
 
