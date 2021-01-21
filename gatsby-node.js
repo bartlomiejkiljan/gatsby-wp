@@ -1,3 +1,13 @@
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type WpBlockAttributesObject {
+      foobar: String
+    }
+  `;
+  createTypes(typeDefs);
+};
+
 const createPosts = require(`./src/config/create-posts`);
 const createPages = require(`./src/config/create-pages`);
 const createCategories = require(`./src/config/create-categories`);
