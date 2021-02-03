@@ -61,7 +61,7 @@ module.exports = async ({ graphql, actions }) => {
               name
               innerBlocks {
                 name
-                ... on WpCustomCardBlock {
+                ... on WpCustomCardItemBlock {
                   attributes {
                     desc
                     title

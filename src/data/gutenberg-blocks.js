@@ -54,7 +54,7 @@ export const Blocks = graphql`
         name
         innerBlocks {
           name
-          ... on WpCustomCardBlock {
+          ... on WpCustomCardItemBlock {
             attributes {
               desc
               title

@@ -10,7 +10,7 @@ const ContentManager = ({blocks}) => {
   console.log(blocks);
   return (
     <div>
-      { blocks.map((block, i) => {
+      { blocks && blocks.map((block, i) => {
         switch (block.name) {
           case 'custom/cta': return <Cta attributes={block.attributes} key={`block-${i}`} />;
           case 'core/paragraph': return <Paragraph attributes={block.attributes} key={`block-${i}`} />;
