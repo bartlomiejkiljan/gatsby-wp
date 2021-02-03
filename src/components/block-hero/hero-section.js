@@ -1,43 +1,30 @@
-import React from "react"
+import React from "react";
+import {HeroItemCaption, HeroItemContent, HeroItemImage, HeroItemImageWrapper, HeroItemTitle, HeroWrapper, HeroItem} from "./hero-styles";
+import {Button} from "../../styles/theme";
 
 const HeroSection = ({ items }) => (
-  <div className="hero-section">
-    { items.map((hero, i) => {
-      const {
-        title,
-        bgColor,
-        bgType,
-        bgUrl,
-        buttonText,
-        buttonUrl,
-        caption,
-        imageAlign,
-        imageAlt,
-        imageUrl,
-      } = hero.attributes;
-
+  <HeroWrapper>
+    { items.map(({attributes: {title, bgColor, bgType, bgUrl, buttonText, buttonUrl, caption, imageAlign, imageAlt, imageUrl}, i}) => {
       return (
-        <div className={`wp-block-custom-hero-item wp-block-custom-hero-item--${imageAlign}`}
+        <HeroItem className={imageAlign}
              style={{background: bgType === 'image' ? `url('${process.env.WORDPRESS_URL+bgUrl}') center/cover no-repeat` : bgColor}}
              key={`hero-${i}`}
         >
-          <div className={imageUrl ? 'hero-section__content' : 'hero-section__content--center'}>
-            <h1 className="hero-section__title">{title}</h1>
-            <p className="hero-section__caption">{caption}</p>
-            { buttonUrl &&
-              <a href={buttonUrl} className="button button--primary">{buttonText}</a>
-            }
-          </div>
+          <HeroItemContent className={!imageUrl ? 'center' : ''}>
+            <HeroItemTitle>{title}</HeroItemTitle>
+            <HeroItemCaption>{caption}</HeroItemCaption>
+            { buttonUrl && <Button href={buttonUrl}>{buttonText}</Button>}
+          </HeroItemContent>
           { imageUrl &&
-            <div className="hero-section__img">
-              <img src={process.env.WORDPRESS_URL+imageUrl} alt={imageAlt} />
-            </div>
+            <HeroItemImageWrapper>
+              <HeroItemImage src={process.env.WORDPRESS_URL+imageUrl} alt={imageAlt} />
+            </HeroItemImageWrapper>
           }
-        </div>
+        </HeroItem>
       )
       })
     }
-  </div>
+  </HeroWrapper>
 );
 
 export default HeroSection;

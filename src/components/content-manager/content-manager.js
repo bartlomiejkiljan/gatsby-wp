@@ -7,7 +7,6 @@ import CardsSection from "../block-cards/cards-section";
 import Columns from "../block-columns/columns";
 
 const ContentManager = ({blocks}) => {
-  console.log(blocks);
   return (
     <div>
       { blocks && blocks.map((block, i) => {

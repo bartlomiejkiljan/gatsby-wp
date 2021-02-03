@@ -1,21 +1,18 @@
 import React from "react"
+import {CardsItem, CardsItemWrapper, CardsWrapper, CardsItemContent, CardsItemTitle} from "./cards-styles";
 
 const CardsSection = ({ items }) => (
-  <div className="cards-section">
-    { items.map((card, i) => {
-      const { desc, title } = card.attributes;
-
-      return (
-        <div className="wp-block-custom-card" key={`card-${i}`}>
-          <div className="card__item">
-            <h3 className="card__title">{title}</h3>
-            <p className="card__desc">{desc}</p>
-          </div>
-        </div>
-      )
-      })
+  <CardsWrapper>
+    { items.map(({attributes: {desc, title}}, i) => (
+        <CardsItemWrapper key={`card-${i}`}>
+          <CardsItem>
+            <CardsItemTitle>{title}</CardsItemTitle>
+            <CardsItemContent>{desc}</CardsItemContent>
+          </CardsItem>
+        </CardsItemWrapper>
+      ))
     }
-  </div>
+  </CardsWrapper>
 );
 
 export default CardsSection;

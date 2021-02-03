@@ -3,7 +3,7 @@ import React from "react"
 import PrimaryMenu from "../primary-menu/primary-menu";
 import Search from "../search/search";
 
-import { SiteHeader, SiteHeaderWrapper, Logo } from './headerStyles';
+import { SiteHeader, SiteHeaderWrapper, Logo } from './header-styles';
 
 const Header = ({ siteTitle }) => (
   <SiteHeader>
