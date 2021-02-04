@@ -1,5 +1,5 @@
 import React from "react";
-import {FooterLink, FooterWrapper} from "./footerStyles";
+import {FooterLink, FooterWrapper} from "./footer-styles";
 import {Container} from "../../styles/theme";
 
 const Footer = () => (
