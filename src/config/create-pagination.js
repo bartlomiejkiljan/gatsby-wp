@@ -10,10 +10,7 @@ const createPagination = async (graphql, createPage, data, template, slug) => {
     }
   `);
 
-  let posts;
-
-  data.name ? posts = data.posts.nodes : posts = data;
-
+  const posts = data.name ? data.posts.nodes : data;
   const postsPerPage = settings.data.wp.readingSettings.postsPerPage;
   const pagesQty = Math.ceil(posts.length / postsPerPage);
 

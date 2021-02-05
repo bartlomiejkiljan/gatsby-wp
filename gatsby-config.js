@@ -4,9 +4,9 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Gatsby WP site`,
+    description: `Gatsby site connected with WordPress data`,
+    author: `Bartłomiej Kiljan`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -30,18 +30,15 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Gatsby and Wordpress Connection`,
+        short_name: `Gatsby WP`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        background_color: `#118ab2`,
+        theme_color: `#00296b`,
+        display: `standalone`,
+        icon: `src/images/favicon.png`,
       },
     },
     `gatsby-plugin-styled-components`
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ],
 };
