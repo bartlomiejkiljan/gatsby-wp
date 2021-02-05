@@ -4,8 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "styled-components"
 
 import Header from "./header/header"
-import "./layout.css"
-import {Container, theme} from "../styles/theme";
+import {Container, GlobalStyle, theme} from "../styles/theme";
 import Footer from "./footer/footer";
 import SEO from "./seo";
 
@@ -23,6 +22,7 @@ const Layout = ({ children, title }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <GlobalStyle theme="green" />
         <SEO title={title}/>
         <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
         <Container>
