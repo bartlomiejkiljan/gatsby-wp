@@ -5,19 +5,6 @@ export const RecentPostsSection = styled.div`
   padding: 100px 0;
 `;
 
-export const TitleButton = styled(Link)`
-  display: inline-block;
-  padding: 12px 24px;
-  font-size: 18px;
-  color: ${({theme}) => theme.white};
-  text-decoration: none;
-  background-color: ${({theme}) => theme.secondary};
-    
-  &:hover {
-    background-color: ${({theme}) => theme.primary};
-  }
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;

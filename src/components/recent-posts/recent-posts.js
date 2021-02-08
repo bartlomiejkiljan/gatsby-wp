@@ -1,15 +1,7 @@
 import React from "react";
 import {useStaticQuery, graphql} from "gatsby"
-import {
-  Item,
-  ItemBgPlaceholder,
-  ItemButton, ItemContent,
-  ItemDesc,
-  ItemImg,
-  ItemLink,
-  ItemsWrapper,
-  ItemTitle, RecentPostsSection, Title, TitleButton, TitleWrapper
-} from "./recent-posts-styles";
+import {Item, ItemBgPlaceholder, ItemButton, ItemContent, ItemDesc, ItemImg, ItemLink, ItemsWrapper, ItemTitle, RecentPostsSection, Title, TitleWrapper} from "./recent-posts-styles";
+import {Button} from "../button/button";
 
 const RecentPosts = ({ quantity }) => {
 
@@ -39,7 +31,7 @@ const RecentPosts = ({ quantity }) => {
     <RecentPostsSection>
       <TitleWrapper>
         <Title>Newest blog posts</Title>
-        <TitleButton to='/blog'>Check our blog</TitleButton>
+        <Button url="/blog" label="Check our blog" />
       </TitleWrapper>
       { postsData.length &&
         <ItemsWrapper>
